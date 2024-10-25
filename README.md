@@ -10,7 +10,7 @@ docker build -t weatherapi .
 
 3. Run the Docker container with:
 ```
-docker run -d -p 8080:8080 weatherapi
+docker run -d -p 8080:80 weatherapi
 ```
 
 4. You can then access your application at 
