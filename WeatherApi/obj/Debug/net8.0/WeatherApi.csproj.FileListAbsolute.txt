@@ -32,3 +32,9 @@ D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\obj\Debug\net8.0\
 D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\obj\Debug\net8.0\WeatherApi.pdb
 D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\obj\Debug\net8.0\WeatherApi.genruntimeconfig.cache
 D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\obj\Debug\net8.0\ref\WeatherApi.dll
+D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\bin\Debug\net8.0\DnsClient.dll
+D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\bin\Debug\net8.0\MongoDB.Bson.dll
+D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\bin\Debug\net8.0\MongoDB.Driver.dll
+D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\bin\Debug\net8.0\SharpCompress.dll
+D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\bin\Debug\net8.0\Snappier.dll
+D:\Users\yevhenii.solomchenko\Desktop\DevOps\DevOps\WeatherApi\bin\Debug\net8.0\ZstdSharp.dll
