@@ -12,8 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
                             o.Endpoint = new Uri("http://zipkin:9411/api/v2/spans");
                         }))
                     .WithMetrics(metrics => metrics
-                        
                         .AddAspNetCoreInstrumentation()
+                        .AddRuntimeInstrumentation()
+                        .AddProcessInstrumentation()
                         .AddPrometheusExporter());
 
 var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI") ?? "mongodb://admin:adminpassword@mongodb:27017/weather?authSource=admin";
