@@ -8,32 +8,55 @@ Thumbs.db
 *.env.*
 .env.local
 
-# Игнорирование для .NET
-bin/
-obj/
-*.vs/
-.vscode/
-.idea/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+# Папка для пакетов Node.js
+node_modules/
+**/node_modules/
 
-# Конфигурации и временные файлы .NET
-*.Publish.xml
-*.cache/
-*.pdb
-*.exe
-*.dll
-*.app
+# Игнорирование для всех .NET сервисов (расположенных в поддиректориях)
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/.idea/
+**/*.suo
+**/*.user
+**/*.userosscache
+**/*.sln.docstates
 
-# NuGet кэш
-.nuget/
-packages/
-*.nupkg
-*.snupkg
-artifacts/
+# Конфигурации и временные файлы для всех .NET сервисов
+**/*.Publish.xml
+**/*.cache/
+**/*.pdb
+**/*.exe
+**/*.dll
+**/*.app
+
+# Секреты и пользовательские настройки для всех .NET сервисов
+**/appsettings.*.json
+**/secrets.json
+
+# NuGet кэш и артефакты
+**/.nuget/
+**/packages/
+**/*.nupkg
+**/*.snupkg
+**/artifacts/
 
 # Результаты тестирования
-TestResults/
-*.TestResults.xml
+**/TestResults/
+**/*.TestResults.xml
+
+# Игнорирование для всех фронтенд проектов на React, Vite, Bun
+**/dist/
+**/out/
+**/.vite/
+**/.vite-cache/
+**/.eslintcache
+**/*.cache
+**/*.tsbuildinfo
+
+# Конфигурации IDE и редакторов
+**/.vscode/
+**/.idea/
+**/*.sln*
+**/*.csproj.user
