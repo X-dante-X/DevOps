@@ -1,0 +1,107 @@
+{
+  "title": "Service Metrics",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Backend CPU Usage",
+      "targets": [
+        {
+          "expr": "rate(process_cpu_seconds_total{job=\"backend\"}[1m]) * 100",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {
+        "mode": "time"
+      },
+      "yaxis": {
+        "format": "percent"
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Backend Memory Usage",
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes{job=\"backend\"}",
+          "legendFormat": "{{instance}}",
+          "refId": "B"
+        }
+      ],
+      "xaxis": {
+        "mode": "time"
+      },
+      "yaxis": {
+        "format": "bytes"
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Backend Requests Per Second",
+      "targets": [
+        {
+          "expr": "rate(http_requests_total{job=\"backend\"}[1m])",
+          "legendFormat": "{{method}} - {{status}}",
+          "refId": "C"
+        }
+      ],
+      "xaxis": {
+        "mode": "time"
+      },
+      "yaxis": {
+        "format": "short"
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Frontend CPU Usage",
+      "targets": [
+        {
+          "expr": "rate(process_cpu_seconds_total{job=\"frontend\"}[1m]) * 100",
+          "legendFormat": "{{instance}}",
+          "refId": "D"
+        }
+      ],
+      "xaxis": {
+        "mode": "time"
+      },
+      "yaxis": {
+        "format": "percent"
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Frontend Memory Usage",
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes{job=\"frontend\"}",
+          "legendFormat": "{{instance}}",
+          "refId": "E"
+        }
+      ],
+      "xaxis": {
+        "mode": "time"
+      },
+      "yaxis": {
+        "format": "bytes"
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Frontend Requests Per Second",
+      "targets": [
+        {
+          "expr": "rate(http_requests_total{job=\"frontend\"}[1m])",
+          "legendFormat": "{{method}} - {{status}}",
+          "refId": "F"
+        }
+      ],
+      "xaxis": {
+        "mode": "time"
+      },
+      "yaxis": {
+        "format": "short"
+      }
+    }
+  ]
+}

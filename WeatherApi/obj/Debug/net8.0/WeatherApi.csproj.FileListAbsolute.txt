@@ -38,3 +38,17 @@ C:\Users\solom\Desktop\DevOps\WeatherApi\obj\Debug\net8.0\refint\WeatherApi.dll
 C:\Users\solom\Desktop\DevOps\WeatherApi\obj\Debug\net8.0\WeatherApi.pdb
 C:\Users\solom\Desktop\DevOps\WeatherApi\obj\Debug\net8.0\WeatherApi.genruntimeconfig.cache
 C:\Users\solom\Desktop\DevOps\WeatherApi\obj\Debug\net8.0\ref\WeatherApi.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\Google.Protobuf.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\Grpc.Core.Api.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\Grpc.Net.Client.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\Grpc.Net.Common.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Api.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Api.ProviderBuilderExtensions.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Exporter.OpenTelemetryProtocol.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Exporter.Prometheus.AspNetCore.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Exporter.Zipkin.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Extensions.Hosting.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Instrumentation.AspNetCore.dll
+C:\Users\solom\Desktop\DevOps\WeatherApi\bin\Debug\net8.0\OpenTelemetry.Exporter.Console.dll

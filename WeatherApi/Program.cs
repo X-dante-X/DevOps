@@ -1,9 +1,22 @@
 using MongoDB.Driver;
-using Microsoft.AspNetCore.Mvc;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Metrics;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI");
+ builder.Services.AddOpenTelemetry()
+                    .WithTracing(tracing => tracing
+                        .AddAspNetCoreInstrumentation()
+                        .AddZipkinExporter(o =>
+                        {
+                            o.Endpoint = new Uri("http://zipkin:9411/api/v2/spans");
+                        }))
+                    .WithMetrics(metrics => metrics
+                        
+                        .AddAspNetCoreInstrumentation()
+                        .AddPrometheusExporter());
+
+var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI") ?? "mongodb://admin:adminpassword@mongodb:27017/weather?authSource=admin";
 var settings = MongoClientSettings.FromConnectionString(connectionUri);
 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(settings));
@@ -29,6 +42,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
