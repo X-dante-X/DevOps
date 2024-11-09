@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
 
+interface Weather {
+    date: string;
+    temperatureC: number;
+    summary: string;
+}
+
 function Weather() {
-    const [weatherData, setWeatherData] = useState([]);
+    const [weatherData, setWeatherData] = useState<Weather[]>([]);
+
     useEffect(() => {
         const fetchWeatherData = async () => {
-            const response = await fetch('http://localhost:5051/api/weather');
+            const response = await fetch('http://localhost:5000/api/weather');
             if (response.ok) {
-                const data = await response.json();
+                const data: Weather[] = await response.json();
                 setWeatherData(data);
             } else {
                 console.error('Failed to fetch weather data');

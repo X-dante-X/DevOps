@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const string connectionUri = "mongodb+srv://yevheniisolomchenko:wtBcfUKsnAY01JNv@weather.aex78.mongodb.net/?retryWrites=true&w=majority&appName=Weather";
+var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI");
 var settings = MongoClientSettings.FromConnectionString(connectionUri);
 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
-
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(settings));
+
 builder.Services.AddSingleton<WeatherService>();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -25,11 +25,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
@@ -53,14 +52,16 @@ app.MapPost("/api/generateweather", async (WeatherService weatherService) =>
     }
 
     return Results.Ok(forecast);
-});
+})
+.WithOpenApi();
 
 
 app.MapGet("/api/weather", async (WeatherService weatherService) =>
 {
     var weatherData = await weatherService.GetWeatherDataAsync();
     return Results.Ok(weatherData);
-});
+})
+.WithOpenApi();
 
 
 app.Run();

@@ -1049,19 +1049,24 @@
     ]
   },
   "packageFolders": {
-    "D:\\Users\\yevhenii.solomchenko\\.nuget\\packages\\": {}
+    "C:\\Users\\solom\\.nuget\\packages\\": {},
+    "D:\\user\\Приложения\\Visual Studio\\SDK\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\yevhenii.solomchenko\\Desktop\\DevOps\\DevOps\\WeatherApi\\WeatherApi.csproj",
+      "projectUniqueName": "C:\\Users\\solom\\Desktop\\DevOps\\WeatherApi\\WeatherApi.csproj",
       "projectName": "WeatherApi",
-      "projectPath": "D:\\Users\\yevhenii.solomchenko\\Desktop\\DevOps\\DevOps\\WeatherApi\\WeatherApi.csproj",
-      "packagesPath": "D:\\Users\\yevhenii.solomchenko\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\yevhenii.solomchenko\\Desktop\\DevOps\\DevOps\\WeatherApi\\obj\\",
+      "projectPath": "C:\\Users\\solom\\Desktop\\DevOps\\WeatherApi\\WeatherApi.csproj",
+      "packagesPath": "C:\\Users\\solom\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\solom\\Desktop\\DevOps\\WeatherApi\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\user\\Приложения\\Visual Studio\\SDK\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "D:\\Users\\yevhenii.solomchenko\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\solom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1069,6 +1074,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1128,7 +1134,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
