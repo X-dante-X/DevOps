@@ -1,18 +1,18 @@
-# Общие файлы
+# General OS files
 .DS_Store
 Thumbs.db
 *.log
 
-# Конфигурации и секреты
+# Environment and configuration files
 *.env
 *.env.*
 .env.local
 
-# Папка для пакетов Node.js
+# Node.js dependencies
 node_modules/
 **/node_modules/
 
-# Игнорирование для всех .NET сервисов (расположенных в поддиректориях)
+# .NET directories across all subdirectories
 **/bin/
 **/obj/
 **/.vs/
@@ -23,7 +23,7 @@ node_modules/
 **/*.userosscache
 **/*.sln.docstates
 
-# Конфигурации и временные файлы для всех .NET сервисов
+# Temporary and build files for .NET projects
 **/*.Publish.xml
 **/*.cache/
 **/*.pdb
@@ -31,22 +31,22 @@ node_modules/
 **/*.dll
 **/*.app
 
-# Секреты и пользовательские настройки для всех .NET сервисов
+# .NET secret and user configuration files
 **/appsettings.*.json
 **/secrets.json
 
-# NuGet кэш и артефакты
+# NuGet cache and artifacts
 **/.nuget/
 **/packages/
 **/*.nupkg
 **/*.snupkg
 **/artifacts/
 
-# Результаты тестирования
+# Test results
 **/TestResults/
 **/*.TestResults.xml
 
-# Игнорирование для всех фронтенд проектов на React, Vite, Bun
+# Build and cache files for React, Vite, Bun frontend projects
 **/dist/
 **/out/
 **/.vite/
@@ -55,7 +55,7 @@ node_modules/
 **/*.cache
 **/*.tsbuildinfo
 
-# Конфигурации IDE и редакторов
+# IDE and editor configurations
 **/.vscode/
 **/.idea/
 **/*.sln*
