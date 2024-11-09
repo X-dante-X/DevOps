@@ -1,0 +1,39 @@
+# Общие файлы
+.DS_Store
+Thumbs.db
+*.log
+
+# Конфигурации и секреты
+*.env
+*.env.*
+.env.local
+
+# Игнорирование для .NET
+bin/
+obj/
+*.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Конфигурации и временные файлы .NET
+*.Publish.xml
+*.cache/
+*.pdb
+*.exe
+*.dll
+*.app
+
+# NuGet кэш
+.nuget/
+packages/
+*.nupkg
+*.snupkg
+artifacts/
+
+# Результаты тестирования
+TestResults/
+*.TestResults.xml
