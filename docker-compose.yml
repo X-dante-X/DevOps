@@ -9,10 +9,9 @@ services:
     environment:
       - OTEL_SERVICE_NAME=WeatherApi
       - MONGODB_URI=mongodb://admin:adminpassword@mongodb:27017/weather?authSource=admin
-      - OTEL_TRACES_EXPORTER=zipkin
+      - OTEL_TRACES_EXPORTER=otlp,zipkin
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
       - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://zipkin:9411/api/v2/spans
-      - OTEL_METRICS_EXPORTER=none
-      - OTEL_LOGS_EXPORTER=none
     depends_on:
       - mongodb
 
@@ -35,6 +34,45 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  # otel-collector:
+  #   image: otel/opentelemetry-collector-contrib:0.113.0
+  #   volumes:
+  #     - ./monitoring/otel-config.yaml:/etc/otel/config.yaml
+  #     - ./log:/log/otel
+  #   command: --config /etc/otel/config.yaml
+  #   environment:
+  #     LOKI_ENDPOINT: "http://loki:3100/loki/api/v1/push"
+  #   ports:
+  #     - "8889:8889"   # Prometheus metrics exporter (scrape endpoint)
+  #     - "13133:13133" # health_check extension
+  #   depends_on:
+  #     - zipkin
+  #     - prometheus
+  #     - loki
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus-config.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - frontend
+      - backend
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+    depends_on:
+      - backend
+      - frontend
+
+  loki:
+    image: grafana/loki:2.7.4
+    ports:
+      - "3100:3100"
+
   grafana:
     image: grafana/grafana:latest
     volumes:
@@ -50,23 +88,7 @@ services:
     depends_on:
       - zipkin
       - prometheus
-
-  prometheus:
-    image: prom/prometheus:latest
-    volumes:
-      - ./monitoring/prometheus-config.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    depends_on:
-      - backend
-
-  zipkin:
-    image: openzipkin/zipkin:latest
-    ports:
-      - "9411:9411"
-    depends_on:
-      - backend
-      - frontend
+      - loki
 
 volumes:
   mongo-data:
