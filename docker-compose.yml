@@ -9,6 +9,10 @@ services:
     environment:
       - OTEL_SERVICE_NAME=WeatherApi
       - MONGODB_URI=mongodb://admin:adminpassword@mongodb:27017/weather?authSource=admin
+      - OTEL_TRACES_EXPORTER=zipkin
+      - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
     depends_on:
       - mongodb
 
@@ -47,7 +51,6 @@ services:
       - "9090:9090"
     depends_on:
       - backend
-      - frontend
 
   zipkin:
     image: openzipkin/zipkin:latest
@@ -59,3 +62,14 @@ services:
 
 volumes:
   mongo-data:
+
+  # kong:
+  #   image: kong:latest
+  #   environment:
+  #     - KONG_DATABASE=off
+  #     - KONG_PROXY_LISTEN=0.0.0.0:8000, 0.0.0.0:8443 ssl
+  #     - KONG_ADMIN_LISTEN=0.0.0.0:8001
+  #   ports:
+  #     - "8000:8000"
+  #     - "8443:8443"
+  #     - "8001:8001"

@@ -4,7 +4,7 @@ function GenerateWeather() {
     const navigate = useNavigate();
 
     const generateWeather = async () => {
-        const response = await fetch('http://localhost:5000/api/generateweather', {
+        const response = await fetch('http://backend:8080/api/generateweather', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

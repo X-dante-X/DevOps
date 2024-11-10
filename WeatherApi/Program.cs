@@ -5,19 +5,14 @@ using OpenTelemetry.Metrics;
 var builder = WebApplication.CreateBuilder(args);
 
  builder.Services.AddOpenTelemetry()
-                    .WithTracing(tracing => tracing
-                        .AddAspNetCoreInstrumentation()
-                        .AddZipkinExporter(o =>
-                        {
-                            o.Endpoint = new Uri("http://zipkin:9411/api/v2/spans");
-                        }))
                     .WithMetrics(metrics => metrics
                         .AddAspNetCoreInstrumentation()
                         .AddRuntimeInstrumentation()
+                        .AddHttpClientInstrumentation()
                         .AddProcessInstrumentation()
                         .AddPrometheusExporter());
 
-var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI") ?? "mongodb://admin:adminpassword@mongodb:27017/weather?authSource=admin";
+var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI");
 var settings = MongoClientSettings.FromConnectionString(connectionUri);
 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(settings));
