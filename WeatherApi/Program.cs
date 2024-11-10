@@ -43,7 +43,7 @@ app.UseOpenTelemetryPrometheusScrapingEndpoint();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-app.MapPost("/api/generateweather", async (WeatherService weatherService) =>
+app.MapPost("/generateweather", async (WeatherService weatherService) =>
 {
     var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
 
@@ -66,7 +66,7 @@ app.MapPost("/api/generateweather", async (WeatherService weatherService) =>
 .WithOpenApi();
 
 
-app.MapGet("/api/weather", async (WeatherService weatherService) =>
+app.MapGet("/weather", async (WeatherService weatherService) =>
 {
     var weatherData = await weatherService.GetWeatherDataAsync();
     return Results.Ok(weatherData);

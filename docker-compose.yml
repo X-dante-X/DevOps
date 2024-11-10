@@ -1,4 +1,8 @@
-version: '3.8'
+version: '3.9'
+
+networks:
+  kong-net:
+    driver: bridge
 
 services:
   backend:
@@ -15,6 +19,8 @@ services:
       - OTEL_LOGS_EXPORTER=none
     depends_on:
       - mongodb
+    networks:
+      - kong-net
 
   frontend:
     build:
@@ -22,7 +28,10 @@ services:
     ports:
       - "3000:80"
     depends_on:
+      - kong
       - backend
+    networks:
+      - kong-net
 
   mongodb:
     image: mongo:latest
@@ -34,6 +43,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=adminpassword
     volumes:
       - mongo-data:/data/db
+    networks:
+      - kong-net
 
   grafana:
     image: grafana/grafana:latest
@@ -50,6 +61,8 @@ services:
     depends_on:
       - zipkin
       - prometheus
+    networks:
+      - kong-net
 
   prometheus:
     image: prom/prometheus:latest
@@ -59,6 +72,8 @@ services:
       - "9090:9090"
     depends_on:
       - backend
+    networks:
+      - kong-net
 
   zipkin:
     image: openzipkin/zipkin:latest
@@ -67,6 +82,31 @@ services:
     depends_on:
       - backend
       - frontend
+    networks:
+      - kong-net
+
+  kong:
+    image: kong/kong-gateway:latest
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: "/kong.yml"
+      KONG_PROXY_ACCESS_LOG: "/dev/stdout"
+      KONG_ADMIN_ACCESS_LOG: "/dev/stdout"
+      KONG_PROXY_ERROR_LOG: "/dev/stderr"
+      KONG_ADMIN_ERROR_LOG: "/dev/stderr"
+      KONG_PROXY_LISTEN: "0.0.0.0:8000"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+      KONG_ADMIN_GUI_LISTEN: "0.0.0.0:8002"
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    volumes:
+      - ./config/kong.yml:/kong.yml
+    depends_on:
+      - backend
+    networks:
+      - kong-net
 
 volumes:
   mongo-data:

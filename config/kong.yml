@@ -1,0 +1,24 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: weather-api
+    url: http://backend:8080
+    routes:
+      - name: weather-route
+        paths:
+          - /api
+        methods:
+          - POST
+          - GET
+
+plugins:
+  - name: cors
+    service: weather-api
+    config:
+      origins: '*'
+      methods:
+        - GET
+        - POST
+      headers: '*'
+      credentials: true
