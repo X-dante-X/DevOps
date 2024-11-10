@@ -42,26 +42,6 @@ To view monitoring metrics, access the Grafana dashboard at:
 
 - **Grafana:** [http://localhost:4000](http://localhost:4000)
 
-#### Grafana Login
-
-- **Username:** `admin`
-- **Password:** `admin`
-
-#### Connect Grafana to Prometheus
-
-Add Prometheus as a data source in Grafana:
-
-- **Server URL:** `http://prometheus:9090/`
-
-#### Import Dashboards
-
-Import the Grafana dashboards for enhanced visualization:
-
-```bash
-cd ./monitoring/grafana-dashboard-1.json
-cd ./monitoring/grafana-dashboard-2.json
-```
-
 ---
 
 This setup provides a comprehensive environment for developing, monitoring, and tracing applications in a containerized DevOps workflow.
