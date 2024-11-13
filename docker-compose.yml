@@ -11,7 +11,7 @@ services:
       - MONGODB_URI=mongodb://admin:adminpassword@mongodb:27017/weather?authSource=admin
       - OTEL_TRACES_EXPORTER=zipkin
       - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://zipkin:9411/api/v2/spans
-      - OTEL_METRICS_EXPORTER=none
+      - OTEL_METRICS_EXPORTER=prometheus
       - OTEL_LOGS_EXPORTER=none
     depends_on:
       - mongodb

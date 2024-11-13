@@ -4,13 +4,13 @@ using OpenTelemetry.Metrics;
 
 var builder = WebApplication.CreateBuilder(args);
 
- builder.Services.AddOpenTelemetry()
-                    .WithMetrics(metrics => metrics
-                        .AddAspNetCoreInstrumentation()
-                        .AddRuntimeInstrumentation()
-                        .AddHttpClientInstrumentation()
-                        .AddProcessInstrumentation()
-                        .AddPrometheusExporter());
+//  builder.Services.AddOpenTelemetry()
+//                     .WithMetrics(metrics => metrics
+//                         .AddAspNetCoreInstrumentation()
+//                         .AddRuntimeInstrumentation()
+//                         .AddHttpClientInstrumentation()
+//                         .AddProcessInstrumentation()
+//                         .AddPrometheusExporter());
 
 var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI");
 var settings = MongoClientSettings.FromConnectionString(connectionUri);
@@ -38,7 +38,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseOpenTelemetryPrometheusScrapingEndpoint();
+// app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
