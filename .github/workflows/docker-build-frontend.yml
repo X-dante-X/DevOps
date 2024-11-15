@@ -1,4 +1,4 @@
-name: Weather Api
+name: Docker build Frontend
 
 on:
   push: 
@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: build WeatherApi
-        run: docker build ./WeatherApi --file ./WeatherApi/Dockerfile --tag weatherapi:$(date +%s)
+      - name: Docker build front
+        run: docker build ./front --file ./front/Dockerfile --tag front:$(date +%s)
