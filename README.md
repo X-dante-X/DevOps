@@ -30,15 +30,9 @@ The application will be accessible at:
 
 - **Application:** [http://localhost:3000](http://localhost:3000)
 
-### 5. View Traces
+### 5. Access Grafana Dashboard
 
-Tracing is available at:
-
-- **Tracing (Zipkin):** [http://localhost:9411](http://localhost:9411)
-
-### 6. Access Grafana Dashboard
-
-To view monitoring metrics, access the Grafana dashboard at:
+To view monitoring traces, metrics and logs access the Grafana dashboard at:
 
 - **Grafana:** [http://localhost:4000](http://localhost:4000)
 
