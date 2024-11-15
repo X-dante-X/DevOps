@@ -59,3 +59,7 @@ node_modules/
 */.idea/
 */*.sln*
 */*.csproj.user
+
+
+kubernetes/
+**/kubernetes/
