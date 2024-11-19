@@ -23,6 +23,28 @@ node_modules/
 */*.userosscache
 */*.sln.docstates
 
+*/*/bin/
+*/*/obj/
+*/*/.vs/
+*/*/.vscode/
+*/*/.idea/
+*/*/*.suo
+*/*/*.user
+*/*/*.userosscache
+*/*/*.sln.docstates
+
+*/*/*/bin/
+*/*/*/obj/
+*/*/*/.vs/
+*/*/*/.vscode/
+*/*/*/.idea/
+*/*/*/*.suo
+*/*/*/*.user
+*/*/*/*.userosscache
+*/*/*/*.sln.docstates
+
+
+
 # Temporary and build files for .NET projects
 */*.Publish.xml
 */*.cache/
