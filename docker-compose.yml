@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./WeatherApi
+      context: ./back/WeatherApi/WeatherApi
     ports:
       - "5000:8080"
     environment:

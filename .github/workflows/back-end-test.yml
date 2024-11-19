@@ -1,0 +1,31 @@
+name: Build and Test ASP.NET Core
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore ./back/WeatherApi/WeatherApi.sln
+
+    - name: Build the project
+      run: dotnet build ./back/WeatherApi/WeatherApi.sln --no-restore --configuration Release
+
+    - name: Run tests
+      run: dotnet test ./back/WeatherApi/WeatherApi.Test/WeatherApi.Test.csproj --no-build --verbosity normal
