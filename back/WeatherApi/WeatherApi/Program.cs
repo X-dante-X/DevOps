@@ -2,7 +2,6 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 var connectionUri = Environment.GetEnvironmentVariable("MONGODB_URI");
 var settings = MongoClientSettings.FromConnectionString(connectionUri);
 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
@@ -28,8 +27,6 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
-
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
@@ -56,8 +53,9 @@ app.MapPost("/api/generateweather", async (WeatherService weatherService) =>
 .WithOpenApi();
 
 
-app.MapGet("/api/weather", async (WeatherService weatherService) =>
+app.MapGet("/api/weather", async (ILogger<Program> logger, WeatherService weatherService) =>
 {
+    logger.LogInformation("get information from logs");
     var weatherData = await weatherService.GetWeatherDataAsync();
     return Results.Ok(weatherData);
 })
