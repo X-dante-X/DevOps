@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: ../back/WeatherApi/WeatherApi
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: OTEL_SERVICE_NAME
+          value: "WeatherApi"
+        - name: MONGODB_URI
+          value: "mongodb://admin:adminpassword@mongodb:27017/weather?authSource=admin"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://otel-collector:4318"
+        volumeMounts:
+        - name: mongodb-volume
+          mountPath: /etc/mongodb
+      volumes:
+        - name: mongodb-volume
+          emptyDir: {} 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 8080
+  type: ClusterIP 
