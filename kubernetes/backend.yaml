@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: ../back/WeatherApi/WeatherApi
+        image: devops-backend
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
