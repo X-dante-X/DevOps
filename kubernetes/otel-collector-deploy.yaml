@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+    spec:
+      containers:
+        - name: otel-collector
+          image: otel/opentelemetry-collector-contrib:0.113.0
+          command: ["--config", "/etc/otel/config.yml"]
+          env:
+            - name: LOKI_ENDPOINT
+              value: "http://loki:3100/loki/api/v1/push"
+            - name: TEMPO_ENDPOINT
+              value: "tempo:4317"
+          ports:
+            - containerPort: 8888 # Prometheus metrics exposed by the collector
+            - containerPort: 8889 # Prometheus exporter metrics
+            - containerPort: 13133 # Health check extension
+            - containerPort: 4317 # OTLP gRPC receiver
+            - containerPort: 4318 # OTLP HTTP receiver
+            - containerPort: 55679 # Zpages extension
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/otel
+              subPath: otel-config.yml
+      volumes:
+        - name: config-volume
+          configMap:
+            name: ../config/otel-config-map.yaml
