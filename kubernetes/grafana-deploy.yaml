@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: devops-grafana
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GF_AUTH_ANONYMOUS_ENABLED
+              value: "true"
+            - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+              value: "Admin"
+          volumeMounts:
+            - name: grafana-config
+              mountPath: /etc/grafana/provisioning/datasources
+              subPath: grafana-datasources.yml
+            - name: grafana-config
+              mountPath: /etc/grafana/provisioning/dashboards
+              subPath: grafana-dashboards.yml
+            - name: grafana-config
+              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-1.json
+              subPath: grafana-dashboard-1.json
+            - name: grafana-config
+              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-2.json
+              subPath: grafana-dashboard-2.json
+            - name: grafana-config
+              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-3.json
+              subPath: grafana-dashboard-3.json
+            - name: grafana-config
+              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-4.json
+              subPath: grafana-dashboard-4.json
+      volumes:
+        - name: grafana-config
+          configMap:
+            name: grafana-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  selector:
+    app: grafana
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer

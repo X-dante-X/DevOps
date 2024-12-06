@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempo
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tempo
+  template:
+    metadata:
+      labels:
+        app: tempo
+    spec:
+      containers:
+        - name: tempo
+          image: devops-tempo
+          command:
+            - "-config.file=/etc/tempo/tempo-config.yml"
+          ports:
+            - containerPort: 3200
+            - containerPort: 4317
+          volumeMounts:
+            - name: tempo-config
+              mountPath: /etc/tempo/tempo-config.yml
+              subPath: tempo-config.yml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tempo
+  namespace: monitoring
+spec:
+  selector:
+    app: tempo
+  ports:
+    - protocol: TCP
+      port: 3200   # Exposes port 3200
+      targetPort: 3200
+    - protocol: TCP
+      port: 4317   # Exposes port 4317
+      targetPort: 4317
+  type: ClusterIP  # Exposes Tempo internally within the cluster
