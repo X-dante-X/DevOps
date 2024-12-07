@@ -1,11 +1,12 @@
 manifests_path="./kubernetes"
 
-kubectl delete pods --all -n default
-kubectl delete svc --all -n default
+minikube delete
+
+minikube start — driver=docker
+
+eval $(minikube -p minikube docker-env)
 
 docker compose build
-docker-compose build
-
 
 for file in "$manifests_path"/*.yaml; do
   kubectl apply -f "$file"
@@ -16,3 +17,5 @@ sleep 10
 kubectl get pods
 
 kubectl get services
+
+minikube tunnel

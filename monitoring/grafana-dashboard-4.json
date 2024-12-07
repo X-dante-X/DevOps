@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_GRAFANACLOUD-GUARDRAILSAI-TRACES",
-      "label": "grafanacloud-guardrailsai-traces",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "tempo",
-      "pluginName": "Tempo"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.2.0-73451"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "tempo",
-      "name": "Tempo",
-      "version": "11.2.0-pre"
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -58,12 +15,12 @@
       }
     ]
   },
+  "description": "Shows high level LLM successes and failures.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 2,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
@@ -116,7 +73,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0-73451",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -219,198 +176,53 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "outputs.llmResponseInfo.output"
+            "displayName": "Span ID"
           }
         ]
       },
-      "pluginVersion": "11.2.0-73451",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
             "type": "tempo",
             "uid": "temp"
           },
+          "filters": [
+            {
+              "id": "4b121c28",
+              "operator": "=",
+              "scope": "span"
+            },
+            {
+              "id": "service-name",
+              "operator": "=",
+              "scope": "resource",
+              "tag": "service.name",
+              "value": [
+                "WeatherApi"
+              ],
+              "valueType": "string"
+            },
+            {
+              "id": "span-name",
+              "operator": "=",
+              "scope": "span",
+              "tag": "name",
+              "value": [
+                "GET /api/weather"
+              ],
+              "valueType": "string"
+            }
+          ],
           "limit": 1000,
           "query": "{name=\"step\" } | select(span.output.value)",
-          "queryType": "traceql",
+          "queryType": "traceqlSearch",
           "refId": "A",
           "spss": 10,
           "tableType": "spans"
         }
       ],
       "title": "Failed Validations",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "format": "json",
-            "jsonPaths": [
-              {
-                "alias": "Prompt 1",
-                "path": "inputs.msgHistory[0]['content']"
-              },
-              {
-                "alias": "LLM Response",
-                "path": "outputs.llmResponseInfo.output"
-              },
-              {
-                "alias": "Prompt 2",
-                "path": "inputs.msgHistory[1]['content']"
-              },
-              {
-                "alias": "Prompt 3",
-                "path": "inputs.msgHistory[2]['content']"
-              },
-              {
-                "alias": "Prompt 4",
-                "path": "inputs.msgHistory[3]['content']"
-              },
-              {
-                "alias": "outcome1",
-                "path": "outputs.validatorLogs[0].validationResult.outcome"
-              },
-              {
-                "alias": "outcome2",
-                "path": "outputs.validatorLogs[1].validationResult.outcome"
-              },
-              {
-                "alias": "outcome3",
-                "path": "outputs.validatorLogs[2].validationResult.outcome"
-              },
-              {
-                "alias": "outcome4",
-                "path": "outputs.validatorLogs[3].validationResult.outcome"
-              },
-              {
-                "alias": "outcome5",
-                "path": "outputs.validatorLogs[4].validationResult.outcome"
-              }
-            ],
-            "source": "output.value"
-          }
-        },
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "equal",
-                  "options": {
-                    "value": "fail"
-                  }
-                },
-                "fieldName": "outcome1"
-              },
-              {
-                "config": {
-                  "id": "equal",
-                  "options": {
-                    "value": "fail"
-                  }
-                },
-                "fieldName": "outcome2"
-              },
-              {
-                "config": {
-                  "id": "equal",
-                  "options": {
-                    "value": "fail"
-                  }
-                },
-                "fieldName": "outcome3"
-              },
-              {
-                "config": {
-                  "id": "equal",
-                  "options": {
-                    "value": "fail"
-                  }
-                },
-                "fieldName": "outcome4"
-              },
-              {
-                "config": {
-                  "id": "equal",
-                  "options": {
-                    "value": "fail"
-                  }
-                },
-                "fieldName": "outcome5"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Duration": true,
-              "Name": true,
-              "Prompt": true,
-              "Prompt 1": false,
-              "Prompt 2": true,
-              "Prompt 3": true,
-              "Prompt 4": true,
-              "Span ID": false,
-              "Start time": true,
-              "Trace Name": true,
-              "Trace Service": true,
-              "outcome1": true,
-              "outcome2": true,
-              "outcome3": true,
-              "outcome4": true,
-              "outcome5": true,
-              "output.value": true,
-              "traceIdHidden": false
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Duration": 7,
-              "LLM Response": 9,
-              "Name": 5,
-              "Prompt 1": 8,
-              "Prompt 2": 10,
-              "Prompt 3": 11,
-              "Prompt 4": 12,
-              "Span ID": 3,
-              "Start time": 4,
-              "Trace Name": 2,
-              "Trace Service": 1,
-              "outcome1": 13,
-              "outcome2": 14,
-              "outcome3": 15,
-              "outcome4": 16,
-              "outcome5": 17,
-              "output.value": 6,
-              "traceIdHidden": 0
-            },
-            "renameByName": {
-              "Message History": "",
-              "Prompt 1": "Prompt"
-            }
-          }
-        },
-        {
-          "disabled": true,
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "destinationType": "boolean",
-                "targetField": "outcome1"
-              },
-              {
-                "destinationType": "boolean",
-                "targetField": "outcome2"
-              }
-            ],
-            "fields": {}
-          }
-        }
-      ],
       "type": "table"
     },
     {
@@ -464,7 +276,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.2.0-73451",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -738,6 +550,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -815,7 +628,7 @@
           }
         ]
       },
-      "pluginVersion": "11.2.0-73451",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1010,6 +823,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1064,8 +878,9 @@
       "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
@@ -1078,8 +893,6 @@
   "timezone": "",
   "title": "Tempo traces",
   "uid": "dff9fb38-6dda-40ff-8e65-7b188d9f607a",
-  "version": 29,
-  "weekStart": "",
-  "gnetId": 20600,
-  "description": "Shows high level LLM successes and failures."
+  "version": 1,
+  "weekStart": ""
 }

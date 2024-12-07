@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana
-  namespace: monitoring
 spec:
   replicas: 1
   selector:
@@ -15,7 +14,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: devops-grafana
+          image: grafana/grafana:latest
           ports:
             - containerPort: 3000
           env:
@@ -24,39 +23,75 @@ spec:
             - name: GF_AUTH_ANONYMOUS_ORG_ROLE
               value: "Admin"
           volumeMounts:
-            - name: grafana-config
+            - name: grafana-datasources
               mountPath: /etc/grafana/provisioning/datasources
-              subPath: grafana-datasources.yml
-            - name: grafana-config
+            - name: grafana-dashboards
               mountPath: /etc/grafana/provisioning/dashboards
-              subPath: grafana-dashboards.yml
-            - name: grafana-config
-              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-1.json
-              subPath: grafana-dashboard-1.json
-            - name: grafana-config
-              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-2.json
-              subPath: grafana-dashboard-2.json
-            - name: grafana-config
-              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-3.json
-              subPath: grafana-dashboard-3.json
-            - name: grafana-config
-              mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-4.json
-              subPath: grafana-dashboard-4.json
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
       volumes:
-        - name: grafana-config
+        - name: grafana-datasources
           configMap:
-            name: grafana-config
+            name: grafana-datasources
+        - name: grafana-dashboards
+          configMap:
+            name: grafana-dashboards
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: grafana
-  namespace: monitoring
 spec:
   selector:
     app: grafana
   ports:
     - protocol: TCP
-      port: 3000
+      port: 4000
       targetPort: 3000
   type: LoadBalancer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+data:
+  grafana-dashboards.yml: |
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        updateIntervalSeconds: 10
+        options:
+          path: /etc/grafana/provisioning/dashboards
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+data:
+  grafana-datasources.yml: |
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        uid: prom
+        type: prometheus
+        access: proxy
+        url: http://prometheus:9090
+      - name: Tempo
+        uid: temp
+        type: tempo
+        access: proxy
+        url: http://tempo:3200
+      - name: Loki
+        uid: lok
+        type: loki
+        access: proxy
+        url: http://loki:3100
