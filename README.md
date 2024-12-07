@@ -18,10 +18,26 @@ cd ./DevOps
 
 ### 3. Build and Start the Application
 
-Run Docker Compose to build and start the application:
+#### Using Docker Compose
+
+Build and start the application with Docker Compose:
 
 ```bash
-docker-compose up --build -d
+docker compose up --build -d
+```
+
+#### Using Kubernetes (Minikube)
+
+Run script for Linux/MacOS:
+
+```bash
+./runk8s.sh
+```
+
+Run script for Windows:
+
+```bash
+./runk8s.ps1
 ```
 
 ### 4. Access the Application
